@@ -25,7 +25,7 @@ func seekMostDistantPoint(l Line, points []Point) (idx int, maxDist float64) {
 	// by @mholt.
 	//
 	// TODO(QuantumGhost): add a test case for line causing infinite recursion.
-	for i := 0; i < len(points)-1; i++ {
+	for i := 1; i < len(points)-1; i++ {
 		d := l.DistanceToPoint(points[i])
 		if d > maxDist {
 			maxDist = d

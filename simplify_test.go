@@ -1,6 +1,10 @@
 package rdp
 
 import (
+	"encoding/json"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"os"
 	"testing"
 )
 
@@ -55,4 +59,26 @@ func TestSeekMostDistantPoint(t *testing.T) {
 	if maxDist != 15 {
 		t.Error("maximum distance is incorrect")
 	}
+}
+
+func TestInfiniteRecursion(t *testing.T) {
+	type LatLng struct {
+		Latitude  float64 `json:"lat"`
+		Longitude float64 `json:"lng"`
+	}
+
+	file, err := os.Open("./testdata/infinite-recursion-1.json")
+	require.NoError(t, err)
+	var latLngs []LatLng
+	err = json.NewDecoder(file).Decode(&latLngs)
+	require.NoError(t, err)
+	rdpPoints := make([]Point, 0, len(latLngs))
+	for _, latLng := range latLngs {
+		rdpPoints = append(rdpPoints, Point{
+			X: latLng.Longitude,
+			Y: latLng.Latitude,
+		})
+	}
+	simplified := SimplifyPath(rdpPoints, 5e-05)
+	assert.NotEmpty(t, simplified)
 }
