@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"rdp"
+	rdp "github.com/calvinfeng/rdp-path-simplification"
 
 	"gonum.org/v1/plot/plotter"
 )
