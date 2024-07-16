@@ -23,8 +23,6 @@ func SimplifyPath(points []Point, ep float64) []Point {
 func seekMostDistantPoint(l Line, points []Point) (idx int, maxDist float64) {
 	// FIX FROM https://github.com/calvinfeng/rdp-path-simplification/pull/1/files
 	// by @mholt.
-	//
-	// TODO(QuantumGhost): add a test case for line causing infinite recursion.
 	for i := 1; i < len(points)-1; i++ {
 		d := l.DistanceToPoint(points[i])
 		if d > maxDist {

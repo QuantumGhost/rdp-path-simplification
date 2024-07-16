@@ -12,16 +12,12 @@ import (
 
 // SavePlot creates a plot of path and simplified path.
 func SavePlot(orig, simp plotter.XYs) error {
-	p, err := plot.New()
-	if err != nil {
-		return err
-	}
-
+	p := plot.New()
 	p.Title.Text = "Visualize Path"
 	p.X.Label.Text = "X"
 	p.Y.Label.Text = "Y"
 
-	err = plotutil.AddLinePoints(p, "Original Path", orig, "Simplified Path", simp)
+	err := plotutil.AddLinePoints(p, "Original Path", orig, "Simplified Path", simp)
 	if err != nil {
 		return err
 	}
